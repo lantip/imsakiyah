@@ -40,6 +40,15 @@ def generate(lat, lon, startdate, days):
     formatDatetime = '%Y-%m-%d %H:%M:%S'
     hourDelta = 7
     secondDelta = 5
+
+    mapTime = {
+        'Imsak': 'imsak',
+        'Subuh': 'fajr',
+        'Dzuhur': 'dhuhr',
+        'Asar': 'asr',
+        'Maghrib': 'maghrib',
+        'Isya': 'isha',
+    }
     
     dte = datetime.strptime(startdate, formatDate)    
     for i in range(days):
