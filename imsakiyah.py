@@ -16,7 +16,7 @@ from argparse import RawTextHelpFormatter
 
 def generate(lat, lon, startdate, days):
     PT = PrayTimes('Makkah')
-    PT.adjust({'wkt':'10 min', 'fajr':17.8, 'dhuhr':'2 min', 'asr':'1.03', 'maghrib':1.5,'isha':18.7})
+    PT.adjust({'imsak':'10 min', 'fajr':17.8, 'dhuhr':'2 min', 'asr':'1.03', 'maghrib':1.5,'isha':18.7})
     #result = []
 
     c = Calendar() 
