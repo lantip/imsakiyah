@@ -84,7 +84,7 @@ def generate(lat, lon, startdate, days):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Generator wktiyah ics/iCal. \r\nUsage: python imsakiyah.py <lat> <lon> <yyyy-mm-dd> <days>', formatter_class=RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(description='Generator imsakiyah ics/iCal. \r\nUsage: python imsakiyah.py <lat> <lon> <yyyy-mm-dd> <days>', formatter_class=RawTextHelpFormatter)
     parser.add_argument('lat', type=str, 
                         help='Latitude')
     parser.add_argument('lon', type=str, 
