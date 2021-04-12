@@ -26,8 +26,11 @@ def generate(lat, lon, startdate, days):
     #result = []
 
     c = Calendar() 
+
+    formatDate = '%Y-%m-%d'
+    formatDatetime = '%Y-%m-%d %H:%M:%S'
     
-    dte = datetime.strptime(startdate, '%Y-%m-%d')    
+    dte = datetime.strptime(startdate, formatDate)    
     for i in range(days):
         today = dte + timedelta(days=i)
         times = PT.getTimes(today.date(), [float(lat),float(lon)],+7)
@@ -42,48 +45,48 @@ def generate(lat, lon, startdate, days):
         })
         '''
 
-        todayTimeStr = today.strftime('%Y-%m-%d')
+        todayTimeStr = today.strftime(formatDate)
         
         e = Event()
         e.name = 'Imsak'
         wkt = setWaktu(times['imsak'], todayTimeStr)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
+        e.begin = wkt.strftime(formatDatetime)
+        e.end = (wkt+timedelta(seconds=5)).strftime(formatDatetime)
         c.events.add(e)
         
         e = Event()
         e.name = 'Subuh'
         wkt = setWaktu(times['fajr'], todayTimeStr)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
+        e.begin = wkt.strftime(formatDatetime)
+        e.end = (wkt+timedelta(seconds=5)).strftime(formatDatetime)
         c.events.add(e)
         
         e = Event()
         e.name = 'Dzuhur'
         wkt = setWaktu(times['dhuhr'], todayTimeStr)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
+        e.begin = wkt.strftime(formatDatetime)
+        e.end = (wkt+timedelta(seconds=5)).strftime(formatDatetime)
         c.events.add(e)
         
         e = Event()
         e.name = 'Asar'
         wkt = setWaktu(times['asr'], todayTimeStr)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
+        e.begin = wkt.strftime(formatDatetime)
+        e.end = (wkt+timedelta(seconds=5)).strftime(formatDatetime)
         c.events.add(e)
         
         e = Event()
         e.name = 'Maghrib'
         wkt = setWaktu(times['maghrib'], todayTimeStr)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
+        e.begin = wkt.strftime(formatDatetime)
+        e.end = (wkt+timedelta(seconds=5)).strftime(formatDatetime)
         c.events.add(e)
         
         e = Event()
         e.name = 'Isya'
         wkt = setWaktu(times['isha'], todayTimeStr)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
+        e.begin = wkt.strftime(formatDatetime)
+        e.end = (wkt+timedelta(seconds=5)).strftime(formatDatetime)
         c.events.add(e)
         
 
