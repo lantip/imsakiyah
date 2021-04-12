@@ -102,7 +102,7 @@ if __name__ == "__main__":
     parser.add_argument('days', type=int, default=30,
                         help='Periode. Default 30 days')
     parser.add_argument('method', type=str, default='Makkah',
-                        help='Methotd. Default: Makkah')
+                        help='Method. Default: Makkah')
     args = parser.parse_args()
     
     generate(args.lat, args.lon, args.date, args.days, args.method)
