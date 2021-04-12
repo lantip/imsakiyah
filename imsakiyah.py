@@ -14,8 +14,8 @@ from ics import Calendar, Event
 import argparse
 from argparse import RawTextHelpFormatter
 
-def generate(lat, lon, startdate, days):
-    PT = PrayTimes('Makkah')
+def generate(lat, lon, startdate, days, method):
+    PT = PrayTimes(method)
     PT.adjust({'imsak':'10 min', 'fajr':17.8, 'dhuhr':'2 min', 'asr':'1.03', 'maghrib':1.5,'isha':18.7})
     #result = []
 
@@ -101,6 +101,8 @@ if __name__ == "__main__":
                         help='Date format YYYY-MM-DD')
     parser.add_argument('days', type=int, default=30,
                         help='Periode. Default 30 days')
+    parser.add_argument('method', type=str, default='Makkah',
+                        help='Methotd. Default: Makkah')
     args = parser.parse_args()
     
-    generate(args.lat, args.lon, args.date, args.days)
+    generate(args.lat, args.lon, args.date, args.days, args.method)
