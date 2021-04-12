@@ -20,6 +20,15 @@ def setWaktu(hourStr, todayTimeStr, hourDelta=7, formatTime='%Y-%m-%d %H:%M:%S')
 
     return wkt
 
+def setEvent(times, name, key, todayTimeStr, hourDelta=7, seconDelta=5, formatDatetime='%Y-%m-%d %H:%M:%S'):
+    e = Event()
+    e.name = name
+    wkt = setWaktu(times[key], todayTimeStr, hourDelta, formatDatetime)
+    e.begin = wkt.strftime(formatDatetime)
+    e.end = (wkt+timedelta(seconds=seconDelta)).strftime(formatDatetime)
+
+    return e
+
 def generate(lat, lon, startdate, days):
     PT = PrayTimes('Makkah')
     PT.adjust({'imsak':'10 min', 'fajr':17.8, 'dhuhr':'2 min', 'asr':'1.03', 'maghrib':1.5,'isha':18.7})
