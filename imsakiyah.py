@@ -66,24 +66,10 @@ def generate(lat, lon, startdate, days):
         '''
 
         todayTimeStr = today.strftime(formatDate)
-        
-        e = setEvent(times, 'Imsak', 'imsak', todayTimeStr, hourDelta, secondDelta, formatDatetime)
-        c.events.add(e)
-        
-        e = setEvent(times, 'Subuh', 'fajr', todayTimeStr, hourDelta, secondDelta, formatDatetime)
-        c.events.add(e)
-        
-        e = setEvent(times, 'Dzuhur', 'dhuhr', todayTimeStr, hourDelta, secondDelta, formatDatetime)
-        c.events.add(e)
-        
-        e = setEvent(times, 'Asar', 'asr', todayTimeStr, hourDelta, secondDelta, formatDatetime)
-        c.events.add(e)
-        
-        e = setEvent(times, 'Maghrib', 'maghrib', todayTimeStr, hourDelta, secondDelta, formatDatetime)
-        c.events.add(e)
-        
-        e = setEvent(times, 'Isya', 'isha', todayTimeStr, hourDelta, secondDelta, formatDatetime)
-        c.events.add(e)
+
+        for name, key in mapTime.items():
+            e = setEvent(times, name, key, todayTimeStr, hourDelta, secondDelta, formatDatetime)
+            c.events.add(e)
         
 
 
