@@ -14,9 +14,12 @@ from ics import Calendar, Event
 import argparse
 from argparse import RawTextHelpFormatter
 
-def generate(lat, lon, startdate, days):
+def generate(lat, lon, startdate, days, option):
     PT = PrayTimes('Makkah')
-    PT.adjust({'imsak':'10 min', 'fajr':17.8, 'dhuhr':'2 min', 'asr':'1.03', 'maghrib':1.5,'isha':18.7})
+    if option == '+8':
+        PT.adjust({'imsak':'10 min', 'fajr':17.8, 'dhuhr':'2 min', 'asr':'1.03', 'maghrib':1.5,'isha':18.7})
+    else:
+        PT.adjust({'imsak':'10 min', 'fajr':19.4, 'dhuhr':'2 min', 'asr':'1.03', 'maghrib':1.8,'isha':18.7})
     #result = []
 
     c = Calendar() 
@@ -84,15 +87,16 @@ def generate(lat, lon, startdate, days):
         e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
         c.events.add(e)
         
+        
 
 
     with open('jadwal_imsakiyah_%s_%s.ics' % (lat, lon), 'w') as f:
         f.write(str(c))
-
+    #print(result)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Generator wktiyah ics/iCal. \r\nUsage: python imsakiyah.py <lat> <lon> <yyyy-mm-dd> <days>', formatter_class=RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(description='Generator wktiyah ics/iCal. \r\nUsage: python imsakiyah.py <lat> <lon> <yyyy-mm-dd> <days> --option=+8', formatter_class=RawTextHelpFormatter)
     parser.add_argument('lat', type=str, 
                         help='Latitude')
     parser.add_argument('lon', type=str, 
@@ -101,6 +105,8 @@ if __name__ == "__main__":
                         help='Date format YYYY-MM-DD')
     parser.add_argument('days', type=int, default=30,
                         help='Periode. Default 30 days')
+    parser.add_argument('--option', type=str, default='-',
+                        help='Option. type `+8` for Muhammadiyah version')
     args = parser.parse_args()
     
-    generate(args.lat, args.lon, args.date, args.days)
+    generate(args.lat, args.lon, args.date, args.days, args.option)
