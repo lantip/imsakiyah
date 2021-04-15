@@ -19,7 +19,8 @@ Command line:
 
     $ python imsakiyah.py <lat> <lon> <startdate> <days> <method=Makkah>
     
-    contoh: `python imsakiyah.py -7.797068 110.370529 2021-04-13 30`
+    contoh: `python imsakiyah.py -7.797068 110.370529 2021-04-13 30 --option=+8`
+    gunakan `--option=+8` untuk perhitungan model Muhammadiyah. Kosongkan untuk mengikuti perhitungan pemerintah.
 
 ### Metode: 
 - **`Makkah`** (Umm Al-Qura University, Makkah) default
