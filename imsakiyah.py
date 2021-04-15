@@ -14,6 +14,23 @@ from ics import Calendar, Event
 import argparse
 from argparse import RawTextHelpFormatter
 
+
+def setWaktu(hourStr, todayTimeStr, hourDelta=7, formatTime='%Y-%m-%d %H:%M:%S'):
+    wkt = datetime.strptime(todayTimeStr+' '+hourStr+':00', formatTime)
+    wkt = wkt - timedelta(hours=hourDelta)
+
+    return wkt
+
+def setEvent(times, name, key, todayTimeStr, hourDelta=7, seconDelta=5, formatDatetime='%Y-%m-%d %H:%M:%S'):
+    e = Event()
+    e.name = name
+    wkt = setWaktu(times[key], todayTimeStr, hourDelta, formatDatetime)
+    e.begin = wkt.strftime(formatDatetime)
+    e.end = (wkt+timedelta(seconds=seconDelta)).strftime(formatDatetime)
+
+    return e
+
+
 def generate(lat, lon, startdate, days, option):
     PT = PrayTimes('Makkah')
     if option == '+8':
@@ -23,8 +40,22 @@ def generate(lat, lon, startdate, days, option):
     #result = []
 
     c = Calendar() 
+
+    formatDate = '%Y-%m-%d'
+    formatDatetime = '%Y-%m-%d %H:%M:%S'
+    hourDelta = 7
+    secondDelta = 5
+
+    mapTime = {
+        'Imsak': 'imsak',
+        'Subuh': 'fajr',
+        'Dzuhur': 'dhuhr',
+        'Asar': 'asr',
+        'Maghrib': 'maghrib',
+        'Isya': 'isha',
+    }
     
-    dte = datetime.strptime(startdate, '%Y-%m-%d')    
+    dte = datetime.strptime(startdate, formatDate)    
     for i in range(days):
         today = dte + timedelta(days=i)
         times = PT.getTimes(today.date(), [float(lat),float(lon)],+7)
@@ -38,54 +69,12 @@ def generate(lat, lon, startdate, days, option):
             'isya': times['isha']
         })
         '''
-        
-        e = Event()
-        e.name = 'Imsak'
-        wkt = datetime.strptime(today.strftime('%Y-%m-%d')+' '+times['imsak']+':00', '%Y-%m-%d %H:%M:%S')
-        wkt = wkt - timedelta(hours=7)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
-        c.events.add(e)
-        
-        e = Event()
-        e.name = 'Subuh'
-        wkt = datetime.strptime(today.strftime('%Y-%m-%d')+' '+times['fajr']+':00', '%Y-%m-%d %H:%M:%S')
-        wkt = wkt - timedelta(hours=7)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
-        c.events.add(e)
-        
-        e = Event()
-        e.name = 'Dzuhur'
-        wkt = datetime.strptime(today.strftime('%Y-%m-%d')+' '+times['dhuhr']+':00', '%Y-%m-%d %H:%M:%S')
-        wkt = wkt - timedelta(hours=7)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
-        c.events.add(e)
-        
-        e = Event()
-        e.name = 'Asar'
-        wkt = datetime.strptime(today.strftime('%Y-%m-%d')+' '+times['asr']+':00', '%Y-%m-%d %H:%M:%S')
-        wkt = wkt - timedelta(hours=7)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
-        c.events.add(e)
-        
-        e = Event()
-        e.name = 'Maghrib'
-        wkt = datetime.strptime(today.strftime('%Y-%m-%d')+' '+times['maghrib']+':00', '%Y-%m-%d %H:%M:%S')
-        wkt = wkt - timedelta(hours=7)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
-        c.events.add(e)
-        
-        e = Event()
-        e.name = 'Isya'
-        wkt = datetime.strptime(today.strftime('%Y-%m-%d')+' '+times['isha']+':00', '%Y-%m-%d %H:%M:%S')
-        wkt = wkt - timedelta(hours=7)
-        e.begin = wkt.strftime('%Y-%m-%d %H:%M:%S')
-        e.end = (wkt+timedelta(seconds=5)).strftime('%Y-%m-%d %H:%M:%S')
-        c.events.add(e)
+
+        todayTimeStr = today.strftime(formatDate)
+
+        for name, key in mapTime.items():
+            e = setEvent(times, name, key, todayTimeStr, hourDelta, secondDelta, formatDatetime)
+            c.events.add(e)
         
         
 
