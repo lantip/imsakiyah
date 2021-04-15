@@ -31,8 +31,8 @@ def setEvent(times, name, key, todayTimeStr, hourDelta=7, seconDelta=5, formatDa
     return e
 
 
-def generate(lat, lon, startdate, days, option):
-    PT = PrayTimes('Makkah')
+def generate(lat, lon, startdate, days, method, option):
+    PT = PrayTimes(method)
     if option == '+8':
         PT.adjust({'imsak':'10 min', 'fajr':17.8, 'dhuhr':'2 min', 'asr':'1.03', 'maghrib':1.5,'isha':18.7})
     else:
@@ -85,7 +85,7 @@ def generate(lat, lon, startdate, days, option):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Generator wktiyah ics/iCal. \r\nUsage: python imsakiyah.py <lat> <lon> <yyyy-mm-dd> <days> --option=+8', formatter_class=RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(description='Generator wktiyah ics/iCal. \r\nUsage: python imsakiyah.py <lat> <lon> <yyyy-mm-dd> <days> <method> --option=+8', formatter_class=RawTextHelpFormatter)
     parser.add_argument('lat', type=str, 
                         help='Latitude')
     parser.add_argument('lon', type=str, 
@@ -94,8 +94,10 @@ if __name__ == "__main__":
                         help='Date format YYYY-MM-DD')
     parser.add_argument('days', type=int, default=30,
                         help='Periode. Default 30 days')
+    parser.add_argument('method', type=str, default='Makkah',
+                        help='Method. Default: Makkah')
     parser.add_argument('--option', type=str, default='-',
                         help='Option. type `+8` for Muhammadiyah version')
     args = parser.parse_args()
     
-    generate(args.lat, args.lon, args.date, args.days, args.option)
+    generate(args.lat, args.lon, args.date, args.days, args.method, args.option)

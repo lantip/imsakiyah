@@ -17,10 +17,19 @@ Penggunaan
 ---
 Command line:
 
-    $ python imsakiyah.py <lat> <lon> <startdate> <days>
+    $ python imsakiyah.py <lat> <lon> <startdate> <days> <method=Makkah>
     
     contoh: `python imsakiyah.py -7.797068 110.370529 2021-04-13 30 --option=+8`
     gunakan `--option=+8` untuk perhitungan model Muhammadiyah. Kosongkan untuk mengikuti perhitungan pemerintah.
+
+### Metode: 
+- **`Makkah`** (Umm Al-Qura University, Makkah) default
+- `MWL` (Muslim World League)
+- `ISNA` (Islamic Society of North America)
+- `Egypt` (Egyptian General Authority of Survey)
+- `Karachi` (University of Islamic Sciences, Karachi)
+- `Tehran` (Institute of Geophysics, University of Tehran)
+- `Jafari` (Shia Ithna-Ashari, Leva Institute, Qum).
 
 Import ke Calendar
 ---
